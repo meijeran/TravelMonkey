@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TravelMonkey.Models;
 using TravelMonkey.Services;
 using Xamarin.Forms;
 
@@ -42,7 +43,13 @@ namespace TravelMonkey.ViewModels
 
         private async void TranslateText()
         {
-            var result = await _translationService.TranslateText(_inputText);
+            var translateRequest = new TranslateRequest
+            {
+                To = new[] {"es", "fr", "it", "ru"},
+                Text = _inputText
+            };
+            
+            var result = await _translationService.TranslateText(translateRequest);
 
             if (!result.Succeeded)
                 MessagingCenter.Send(this, Constants.TranslationFailedMessage);

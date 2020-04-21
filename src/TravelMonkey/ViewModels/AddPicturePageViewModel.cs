@@ -118,6 +118,8 @@ namespace TravelMonkey.ViewModels
 
                 if (!string.IsNullOrWhiteSpace(result.LandmarkDescription))
                     PictureDescription += $". {result.LandmarkDescription}";
+                
+                //Store photo
             }
             finally
             {
