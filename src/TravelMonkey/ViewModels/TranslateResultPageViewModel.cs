@@ -49,7 +49,7 @@ namespace TravelMonkey.ViewModels
                 Text = _inputText
             };
             
-            var result = await _translationService.TranslateText(translateRequest);
+            var result = await _translationService.TranslateText(_inputText);
 
             if (!result.Succeeded)
                 MessagingCenter.Send(this, Constants.TranslationFailedMessage);
