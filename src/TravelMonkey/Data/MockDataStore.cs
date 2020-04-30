@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TravelMonkey.Models;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace TravelMonkey.Data
 {
@@ -10,5 +11,6 @@ namespace TravelMonkey.Data
             = new ObservableCollection<PictureEntry>();
 
         public static List<Destination> Destinations { get; set; } = new List<Destination>();
+        public static ObservableCollection<FaceResult> FaceResults { get; set; } = new ObservableCollection<FaceResult>();
 	}
 }

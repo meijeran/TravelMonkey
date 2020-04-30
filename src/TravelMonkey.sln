@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelMonkey.iOS", "TravelM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelMonkey", "TravelMonkey\TravelMonkey.csproj", "{04991790-FBB2-415A-9531-268B4193DB3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyTravel.FunctionApp", "MonkeyTravel.FunctionApp\MonkeyTravel.FunctionApp.csproj", "{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,17 +53,5 @@ Global
 		{04991790-FBB2-415A-9531-268B4193DB3E}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{04991790-FBB2-415A-9531-268B4193DB3E}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{04991790-FBB2-415A-9531-268B4193DB3E}.Release|iPhone.Build.0 = Release|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{C096B0B4-6D74-4AB2-88C0-203F0C48D8A6}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

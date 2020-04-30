@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -6,15 +7,19 @@ using TravelMonkey.Data;
 using TravelMonkey.Models;
 using TravelMonkey.Services;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace TravelMonkey.ViewModels
 {
     public class AddPicturePageViewModel : BaseViewModel
     {
         private readonly ComputerVisionService _computerVisionService = new ComputerVisionService();
+        private readonly FaceService _faceService = new FaceService();
 
         public bool ShowImagePlaceholder => !ShowPhoto;
         public bool ShowPhoto => _photoSource != null;
+
+        private FaceResult _faceResult;
 
         MediaFile _photo;
         StreamImageSource _photoSource;
@@ -55,12 +60,20 @@ namespace TravelMonkey.ViewModels
         public Command TakePhotoCommand { get; }
         public Command AddPictureCommand { get; }
 
+        public bool CanSave => _photo != null;
         public AddPicturePageViewModel()
         {
             TakePhotoCommand = new Command(async () => await TakePhoto());
             AddPictureCommand = new Command(() =>
              {
+                 if (_faceResult != null)
+                 {
+                     MockDataStore.FaceResults.Add(_faceResult);
+                     MessagingCenter.Send(this, Constants.FaceDetected);
+                 }
+                 
                  MockDataStore.Pictures.Add(new PictureEntry { Description = _pictureDescription, Image = _photoSource });
+                 
                  MessagingCenter.Send(this, Constants.PictureAddedMessage);
              });
         }
@@ -91,6 +104,7 @@ namespace TravelMonkey.ViewModels
                 await Post();
         }
 
+        
         private async Task Post()
         {
             if (_photo == null)
@@ -103,8 +117,13 @@ namespace TravelMonkey.ViewModels
 
             try
             {
-                var pictureStream = _photo.GetStreamWithImageRotatedForExternalStorage();
-                var result = await _computerVisionService.AddPicture(pictureStream);
+                    
+                var pictureStream = _photo.GetStream();
+              
+                _faceResult = await _faceService.GetFaceResult(pictureStream);
+
+                var stream = _photo.GetStreamWithImageRotatedForExternalStorage();
+                var result = await _computerVisionService.AddPicture(stream);
 
                 if (!result.Succeeded)
                 {
@@ -118,7 +137,9 @@ namespace TravelMonkey.ViewModels
 
                 if (!string.IsNullOrWhiteSpace(result.LandmarkDescription))
                     PictureDescription += $". {result.LandmarkDescription}";
-                
+                    
+                RaisePropertyChanged(nameof(CanSave));
+
                 //Store photo
             }
             finally

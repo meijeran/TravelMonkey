@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Timers;
 using TravelMonkey.Data;
 using TravelMonkey.Models;
@@ -14,6 +15,7 @@ namespace TravelMonkey.ViewModels
 
         public List<Destination> Destinations => MockDataStore.Destinations;
         public ObservableCollection<PictureEntry> Pictures => MockDataStore.Pictures;
+        public ObservableCollection<FaceResult> FaceResults => MockDataStore.FaceResults;
 
         private Destination _currentDestination;
         public Destination CurrentDestination
@@ -49,8 +51,13 @@ namespace TravelMonkey.ViewModels
                         CurrentDestination = Destinations[currentIdx + 1];
                 };
             }
+
+            MessagingCenter.Subscribe<AddPicturePageViewModel>(this, Constants.FaceDetected,
+                (vm) => RaisePropertyChanged(nameof(HappyFaces)));
         }
 
+        public int HappyFaces => FaceResults.Sum(x => x.TotalHappyFaceCount);
+       
         public void StartSlideShow()
         {
             _slideShowTimer.Start();
