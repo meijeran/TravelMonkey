@@ -1,0 +1,19 @@
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:TravelMonkey.Views;assembly=TravelMonkey"
+       x:Class="TravelMonkey.AppShell">
+       
+       <TabBar>
+              <Tab Title="Overview" Route="home">
+                     <ShellContent Route="home"> 
+                            <views:MainPage />
+                     </ShellContent>
+              </Tab>
+              <Tab Title="Pictures" Route="pictures">
+                     <ShellContent>
+                            <views:AddPicturePage />
+                     </ShellContent>
+              </Tab>
+       </TabBar>
+
+</Shell>

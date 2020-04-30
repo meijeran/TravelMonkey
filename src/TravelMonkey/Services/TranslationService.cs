@@ -12,9 +12,9 @@ namespace TravelMonkey.Services
 {
     public class TranslationService
     {
-        public async Task<TranslateTextResult> TranslateText(TranslateRequest translateRequest)
+        public async Task<TranslateTextResult> TranslateText(string inputText)
         {
-            var body = translateRequest;
+            var body = new object[] { new { Text = inputText } };
             var requestBody = JsonConvert.SerializeObject(body);
 
             using (var client = new HttpClient())
@@ -22,9 +22,9 @@ namespace TravelMonkey.Services
             {
                 // Build the request.
                 request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(ApiKeys.TranslationsEndpoint);
+                request.RequestUri = new Uri(ApiKeys.TranslationsEndpoint + "/translate?api-version=3.0&to=en&to=nl&to=es&to=fr");
                 request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-                // request.Headers.Add("Ocp-Apim-Subscription-Key", ApiKeys.TranslationsApiKey);
+                request.Headers.Add("Ocp-Apim-Subscription-Key", ApiKeys.TranslationsApiKey);
 
                 try
                 {
@@ -45,9 +45,9 @@ namespace TravelMonkey.Services
                     foreach (Translation t in bestResult.Translations)
                         translations.Add(t.To, t.Text);
 
-                    return new TranslateTextResult(bestResult.DetectedLanguage.Language, translateRequest.Text, translations);
+                    return new TranslateTextResult(bestResult.DetectedLanguage.Language, inputText, translations);
                 }
-                catch(Exception ex)
+                catch
                 {
                     return new TranslateTextResult();
                 }
